@@ -14,13 +14,14 @@ fn main() {
             }
             Ok(line) => {
                 let line = line.trim();
-                match line {
+                match line.split_whitespace().nth(0).unwrap_or("") {
                     "\\exit" => {
                         println!("Exiting...");
                         break;
                     }
-                    "\\search <task_id>" => {
+                    "\\search" => {
                         let task_id = line.split_whitespace().nth(1).unwrap_or("");
+                        println!("{}", task_id);
                         match task_id.parse::<usize>() {
                             Ok(id) => {
                                 let task = to_do_list.get(TaskID(id));
@@ -35,12 +36,12 @@ fn main() {
                             }
                         }
                     }
-                    "\\add <task_description>" => {
-                        let task_description = line.split_whitespace().nth(1).unwrap_or("");
+                    "\\add" => {
+                        let task_description = line.trim_start_matches("\\add");
                         let task_id = to_do_list.add(task_description.to_string());
                         println!("Added task with ID: {:?}", task_id);
                     }
-                    "\\remove <task_id>" => {
+                    "\\remove" => {
                         let task_id = line.split_whitespace().nth(1).unwrap_or("");
                         match task_id.parse::<usize>() {
                             Ok(id) => {
