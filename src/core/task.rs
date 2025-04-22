@@ -4,5 +4,5 @@ pub struct Task {
     pub description: String,
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
-pub struct TaskID(usize);
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct TaskID(pub usize);
