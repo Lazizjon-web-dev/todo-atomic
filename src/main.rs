@@ -19,6 +19,54 @@ fn main() {
                         println!("Exiting...");
                         break;
                     }
+                    "\\search <task_id>" => {
+                        let task_id = line.split_whitespace().nth(1).unwrap_or("");
+                        match task_id.parse::<usize>() {
+                            Ok(id) => {
+                                let task = to_do_list.get(TaskID(id));
+                                match task {
+                                    Ok(Some(task)) => println!("Task: {:?}", task),
+                                    Ok(None) => println!("Task not found"),
+                                    Err(e) => println!("Error: {}", e),
+                                }
+                            }
+                            Err(_) => {
+                                println!("Invalid task ID");
+                            }
+                        }
+                    }
+                    "\\add <task_description>" => {
+                        let task_description = line.split_whitespace().nth(1).unwrap_or("");
+                        let task_id = to_do_list.add(task_description.to_string());
+                        println!("Added task with ID: {:?}", task_id);
+                    }
+                    "\\remove <task_id>" => {
+                        let task_id = line.split_whitespace().nth(1).unwrap_or("");
+                        match task_id.parse::<usize>() {
+                            Ok(id) => {
+                                match to_do_list.remove(TaskID(id)) {
+                                    Ok(_) => println!("Task removed successfully"),
+                                    Err(e) => println!("Error: {}", e),
+                                }
+                            }
+                            Err(_) => {
+                                println!("Invalid task ID");
+                            }
+                        }
+                    }
+                    "\\list" => {
+                        let tasks = to_do_list.get_all();
+                        match tasks {
+                            Ok(tasks) => {
+                                for task in tasks {
+                                    println!("Task ID: {:?}, Description: {:?}", task.id, task.description);
+                                }
+                            }
+                            Err(e) => {
+                                println!("Error: {}", e);
+                            }
+                        }
+                    }
                     &_ => {
                         println!("Unknown command: {}", line);
                     }
