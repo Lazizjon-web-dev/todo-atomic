@@ -1,5 +1,6 @@
 use crate::store::Store;
 use crate::core::task::{Task, TaskID};
+use core::task;
 use std::collections::HashMap;
 use std::sync::RwLock;
 
@@ -33,10 +34,10 @@ impl Store for InMemory {
 
     fn get(&self, id: TaskID) -> Result<Option<Task>, String> {
         let tasks = self.tasks.read().unwrap();
-        return match tasks.get(&id) {
+        match tasks.get(&id) {
             Some(task) => Ok(Some(task.clone())),
             None => Ok(None),
-        };
+        }
     }
 
     fn get_all(&self) -> Result<Vec<Task>, String> {
