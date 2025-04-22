@@ -41,4 +41,13 @@ impl<S: Store> ToDoList<S> {
         }
         Ok(())
     }
+
+    pub fn get(&self, id: TaskID) -> Result<Option<Task>, String> {
+        self.store.get(id)
+    }
+
+    pub fn get_all(&self) -> Result<Vec<Task>, String> {
+        self.store.get_all()
+    }
+    
 }
