@@ -67,6 +67,14 @@ fn main() {
                             }
                         }
                     }
+                    "\\help" => {
+                        println!("Available commands:");
+                        println!("\\add <task_description> - Add a new task");
+                        println!("\\remove <task_id> - Remove a task");
+                        println!("\\search <task_id> - Search for a task by ID");
+                        println!("\\list - List all tasks");
+                        println!("\\exit - Exit the program");
+                    }
                     &_ => {
                         println!("Unknown command: {}", line);
                     }
