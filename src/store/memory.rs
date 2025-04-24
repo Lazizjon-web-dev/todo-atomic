@@ -1,12 +1,12 @@
 use crate::store::Store;
 use crate::core::task::{Task, TaskID};
-use core::task;
 use std::collections::HashMap;
 use std::sync::RwLock;
 
 pub struct InMemory {
     tasks: RwLock<HashMap<TaskID, Task>>,
 }
+
 impl InMemory {
     pub fn new() -> Self {
         InMemory {
@@ -14,6 +14,7 @@ impl InMemory {
         }
     }
 }
+
 impl Store for InMemory {
     fn insert(&self, task: Task) -> Result<(), String> {
         let mut tasks = self.tasks.write().unwrap();
