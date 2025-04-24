@@ -16,13 +16,18 @@ impl<S: Store> ToDoList<S> {
             id_gen: AtomicUsize::new(0),
         }
     }
-    pub fn add(&self, desc: String) -> TaskID {
+    
+    pub fn add(&self, description: String) -> TaskID {
+        // Generate a new ID for the task
         let id = self.id_gen.fetch_add(1, SeqCst);
+        // Create a new task and insert it into the store
         let task = Task {
             id: TaskID(id),
-            description: desc,
+            description,
         };
+        // Insert the task into the store
         self.store.insert(task).unwrap();
+        // Return the ID of the newly created task
         TaskID(id)
     }
 
