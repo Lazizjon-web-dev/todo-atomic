@@ -106,7 +106,7 @@ fn main() {
                             // If successful, print the tasks
                             Ok(tasks) => {
                                 for task in tasks {
-                                    println!("Task ID: {:?}, Description: {:?}", task.id, task.description);
+                                    println!("Task ID: {:?}, Description: {:?}", task.id.0, task.description);
                                 }
                             }
                             // If an error occurs, print the error message
