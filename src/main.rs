@@ -105,6 +105,11 @@ fn main() {
                         match tasks {
                             // If successful, print the tasks
                             Ok(tasks) => {
+                                // Sort the tasks by ID
+                                let mut tasks = tasks;
+                                // Sort the tasks by ID
+                                tasks.sort_by(|a, b| a.id.0.cmp(&b.id.0));
+                                // Print the tasks
                                 for task in tasks {
                                     println!("Task ID: {:?}, Description: {:?}", task.id.0, task.description);
                                 }
