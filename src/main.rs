@@ -56,6 +56,22 @@ fn main() {
                     "\\add" => {
                         // Get the task description from the line
                         let task_description = line.trim_start_matches("\\add ").trim();
+                        // Check if the task description is too long
+                        if task_description.len() > 100 {
+                            println!("Task description is too long (max 100 characters)");
+                            continue;
+                        }
+                        // Check if the task description contains invalid characters
+                        if task_description.chars().any(|c| !c.is_alphanumeric() && c != ' ') {
+                            println!("Task description contains invalid characters");
+                            continue;
+                        }
+                        
+                        // Check if the task description is empty
+                        if task_description.is_empty() {
+                            println!("Task description cannot be empty");
+                            continue;
+                        }
                         // Add the task to the ToDoList
                         let task_id = to_do_list.add(task_description.to_string());
                         // Print the ID of the added task
