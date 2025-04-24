@@ -3,9 +3,9 @@ use todo_atomic::core::{ToDoList, task::{Task, TaskID}};
 use todo_atomic::store::memory::InMemory;
 fn main() {
     let mut rl = DefaultEditor::new().unwrap();
+    let to_do_list = ToDoList::new(InMemory::new());
     loop {
         let readline = rl.readline(">> ");
-        let to_do_list = ToDoList::new(InMemory::new());
 
         match readline {
             Ok(line) if line.trim() == "" => {
