@@ -37,7 +37,7 @@ fn main() {
                         }
                     }
                     "\\add" => {
-                        let task_description = line.trim_start_matches("\\add");
+                        let task_description = line.trim_start_matches("\\add ").trim();
                         let task_id = to_do_list.add(task_description.to_string());
                         println!("Added task with ID: {:?}", task_id);
                     }
