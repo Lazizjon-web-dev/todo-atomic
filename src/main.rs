@@ -41,7 +41,7 @@ fn main() {
                                 let task = to_do_list.get(TaskID(id));
                                 // Match the result of the get operation
                                 match task {
-                                    Ok(Some(task)) => println!("Task: {:?}", task),
+                                    Ok(Some(task)) => println!("Task ID: {}, Description: {:?}", task.id.0, task.description),
                                     Ok(None) => println!("Task not found"),
                                     Err(e) => println!("Error: {}", e),
                                 }

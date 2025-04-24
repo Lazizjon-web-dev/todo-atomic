@@ -19,7 +19,7 @@ impl Store for InMemory {
     fn insert(&self, task: Task) -> Result<(), String> {
         let mut tasks = self.tasks.write().unwrap();
         if tasks.contains_key(&task.id) {
-            return Err(format!("Task already exists: {:?}", task.id));
+            return Err(format!("Task already exists: {}", task.id.0));
         }
         tasks.insert(task.id.clone(), task);
         Ok(())
@@ -28,7 +28,7 @@ impl Store for InMemory {
     fn remove(&self, id: TaskID) -> Result<(), String> {
         let mut tasks = self.tasks.write().unwrap();
         if tasks.remove(&id).is_none() {
-            return Err(format!("Task not found: {:?}", id));
+            return Err(format!("Task not found: {}", id.0));
         }
         Ok(())
     }
